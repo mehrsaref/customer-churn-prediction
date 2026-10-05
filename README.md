@@ -41,23 +41,35 @@ valid string, so this has to be caught by checking dtypes rather than by a null 
 
 ## Results
 
-_To be filled in as models are built._
+All scores are for the **churn class** on the held-out test set (1,409 customers),
+at the default 0.5 decision threshold.
 
 | Model | Precision (churn) | Recall (churn) | F1 | ROC-AUC |
 |---|---|---|---|---|
 | Baseline (predict majority) | – | 0.00 | – | 0.50 |
-| Logistic Regression | | | | |
+| Logistic Regression | 0.657 | 0.559 | 0.604 | 0.842 |
 | Random Forest | | | | |
 | Gradient Boosting | | | | |
+
+Logistic regression reaches 80.6% accuracy, but **finds only 56% of churners** —
+165 of 374 churners in the test set are missed. ROC-AUC of 0.842 says the model ranks customers well, so the next move is the decision threshold, not a new model.
+
 
 ## Project structure
 
 ```
-data/         raw dataset (CSV)
-notebooks/    exploratory analysis and modelling
-src/          reusable code (data loading, preprocessing, training)
-models/       serialised trained models
+data/
+  WA_Fn-UseC_-Telco-Customer-Churn.csv   raw dataset from Kaggle
+  processed/
+    telco_churn_clean.csv                cleaned, 7,043 x 20, Churn encoded 0/1
+notebooks/
+  01_data_exploration.ipynb              data quality checks and EDA
+  02_data_cleaning.ipynb                 raw CSV in, clean CSV out
+  03_modeling.ipynb                      train/test split, baseline, evaluation
+src/                                     reusable code (empty - notebooks first)
+models/                                  serialised trained models (empty)
 ```
+
 
 ## Setup
 
